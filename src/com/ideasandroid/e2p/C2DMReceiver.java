@@ -35,7 +35,6 @@ public class C2DMReceiver extends C2DMBaseReceiver {
     public void onMessage(Context context, Intent intent) {
         Bundle extras = intent.getExtras();
         Log.d("***********：Received Message:", "hahahaha************:"+extras.getString("message"));
-        
         if (extras != null) {
             String msgType = (String) extras.get("msgType");
             String message = (String) extras.get("message");

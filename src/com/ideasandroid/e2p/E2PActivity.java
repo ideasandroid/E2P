@@ -18,6 +18,7 @@ public class E2PActivity extends Activity {
         SharedPreferences prefs = Prefs.get(this);
         if (prefs.getString("deviceRegistrationID", null) == null) {
             startActivity(new Intent(this, SetupActivity.class));
+            finish();
         }else{
         	setContentView(R.layout.setup_complete);
         	TextView textView = (TextView) findViewById(R.id.setup_complete_text);
