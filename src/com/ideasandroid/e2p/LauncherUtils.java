@@ -22,25 +22,31 @@ public class LauncherUtils {
 
     public static Intent getLaunchIntent(Context context, String msgType, String message) {
         Intent intent = null;
-        if ("4".equals(msgType)) {
+        //打电话
+        if ("1".equals(msgType)) {
             intent = new Intent(Intent.ACTION_DIAL,
                     Uri.parse("tel:" + message));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ClipboardManager cm =
                 (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             cm.setText(message);
-        } else if ("1".equals(msgType)) {
-            // No intent for selection - just copy to clipboard
+        } else if ("2".equals(msgType)) {
+            // 文本数据复制到剪贴板
             ClipboardManager cm =
                 (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             cm.setText(message);
+        }else if ("0".equals(msgType)) {
+            // No intent for selection - just copy to clipboard
+            Uri uri=Uri.parse("smsto:"+message.substring(0,message.indexOf(":")));
+            intent=new Intent(Intent.ACTION_SENDTO,uri);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("sms_body",message.substring(message.indexOf(":")+1));
         } else {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse(message));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (isMapsURL(message)) {
                 intent.setClassName(GMM_PACKAGE_NAME, GMM_CLASS_NAME);
             }
-
             // Fall back if we can't resolve intent (i.e. app missing)
             PackageManager pm = context.getPackageManager();
             if (null == intent.resolveActivity(pm)) {
