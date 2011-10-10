@@ -158,6 +158,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
 
         if (removed != null) {
             // Remember we are unregistered
+            Log.d("***************Unregitered:", "removed Device");
             C2DMessaging.clearRegistrationId(context);
             onUnregistered(context);
             return;

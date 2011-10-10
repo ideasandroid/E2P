@@ -2,6 +2,7 @@ package com.ideasandroid.e2p;
 
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,7 +18,10 @@ public class E2PActivity extends Activity {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = Prefs.get(this);
         if (prefs.getString("deviceRegistrationID", null) == null) {
-            startActivity(new Intent(this, SetupActivity.class));
+            Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
+            unregIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+            startService(unregIntent);
+            //startActivity(new Intent(this, SetupActivity.class));
             finish();
         }else{
         	setContentView(R.layout.setup_complete);

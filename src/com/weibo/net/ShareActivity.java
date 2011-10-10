@@ -145,7 +145,6 @@ public class ShareActivity extends Activity implements OnClickListener, RequestL
 		}
 	}
 
-	@Override
 	public void onClick(View v) {
 		int viewId = v.getId();
 		switch(viewId){
@@ -255,19 +254,16 @@ public class ShareActivity extends Activity implements OnClickListener, RequestL
 
 
 
-	@Override
 	public void onComplete(String response) {
 		Toast.makeText(this, R.string.send_sucess, Toast.LENGTH_LONG);	
 		this.finish();
 	}
 
-	@Override
 	public void onIOException(IOException e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void onError(WeiboException e) {
 		Toast.makeText(this, String.format(this.getString(R.string.send_failed) + ":%s", e.getMessage()), 
 				Toast.LENGTH_LONG);	
