@@ -58,18 +58,18 @@
         <item name="android:textStyle">normal</item>
     </style>
     
-    <style name="WordPress" parent="@android:style/Theme.Light">
-    	<item name="android:textViewStyle">@style/WordPressTextAppearance</item> 
-    	<item name="android:windowTitleStyle">@style/WordPressTitleAppearance</item>
-    	<item name="android:buttonStyle">@style/WordPressButtonAppearance</item> 
+    <style name="E2P" parent="@android:style/Theme.Light">
+    	<item name="android:textViewStyle">@style/E2PTextAppearance</item> 
+    	<item name="android:windowTitleStyle">@style/E2PTitleAppearance</item>
+    	<item name="android:buttonStyle">@style/E2PButtonAppearance</item> 
 	    <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
 	</style>	
     
-    <style name="WordPressTextAppearance" parent="@android:style/TextAppearance">
+    <style name="E2PTextAppearance" parent="@android:style/TextAppearance">
     	<item name="android:textColor">#FF464646</item>
   	</style>
     
-    <style name="WordPressTitleAppearance" parent="@android:style/TextAppearance">
+    <style name="E2PTitleAppearance" parent="@android:style/TextAppearance">
     	<item name="android:singleLine">true</item>
     	<item name="android:shadowColor">#BB000000</item>
         <item name="android:shadowRadius">2.75</item>
@@ -78,11 +78,11 @@
         <item name="android:textStyle">bold</item>
   	</style>
   	
-  	<style name="WordPressButtonAppearance" parent="@android:style/Widget.Button">
+  	<style name="E2PButtonAppearance" parent="@android:style/Widget.Button">
     	<item name="android:textColor">#FF464646</item>
   	</style>
   	
-  	<style name="WordPressSectionHeader" parent="@android:style/Widget.TextView">
+  	<style name="E2PSectionHeader" parent="@android:style/Widget.TextView">
     	<item name="android:layout_marginBottom">6dip</item>
               <item name="android:textStyle">bold</item>
               <item name="android:shadowColor">#FFFFFFFF</item>
@@ -101,19 +101,19 @@
         <item name="android:progressBarStyleInverse">@android:style/Widget.ProgressBar.Inverse</item>
 		<item name="android:progressBarStyleSmallInverse">@android:style/Widget.ProgressBar.Small.Inverse</item>
 	    <item name="android:progressBarStyleLargeInverse">@android:style/Widget.ProgressBar.Large.Inverse</item> 
-	    <item name="android:tabWidgetStyle">@style/WordPress.TabWidget</item>
+	    <item name="android:tabWidgetStyle">@style/E2P.TabWidget</item>
 	    <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
     </style>
     
-    <style name="WordPress.TabWidget">
-        <item name="android:textAppearance">@style/WordPress.TabWidgetText</item>
+    <style name="E2P.TabWidget">
+        <item name="android:textAppearance">@style/E2P.TabWidgetText</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:marqueeRepeatLimit">2</item>
         <item name="android:singleLine">true</item>
 	</style>  
 
 
-	<style name="WordPress.TabWidgetText">
+	<style name="E2P.TabWidgetText">
 	    <item name="android:textSize">12sp</item>
 	    <item name="android:textStyle">normal</item>
 	    <item name="android:textColor">@android:color/tab_indicator_text</item>

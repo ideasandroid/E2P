@@ -18,10 +18,10 @@ public class E2PActivity extends Activity {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = Prefs.get(this);
         if (prefs.getString("deviceRegistrationID", null) == null) {
-            Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
+            /*Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
             unregIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
-            startService(unregIntent);
-            //startActivity(new Intent(this, SetupActivity.class));
+            startService(unregIntent);*/
+            startActivity(new Intent(this, SetupActivity.class));
             finish();
         }else{
         	setContentView(R.layout.setup_complete);

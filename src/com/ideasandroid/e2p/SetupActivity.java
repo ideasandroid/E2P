@@ -76,19 +76,6 @@ public class SetupActivity extends Activity {
         } else {
             setScreenContent(savedScreenId);
         }
-        //TODO sina weibo
-        /*Uri uri = this.getIntent().getData();
-        if(uri!=null){
-			String oauth_verifier = uri.getQueryParameter("oauth_verifier");
-			mWeibo.addOauthverifier(oauth_verifier);
-			try {
-				mWeibo.generateAccessToken(this, null);
-				String userinfo = mWeibo.getUserInfo(this, mWeibo);
-				Log.d("*******result", userinfo);
-			}catch (Exception e1) {
-				e1.printStackTrace();
-			}
-        }*/
 
         registerReceiver(mUpdateUIReceiver, new IntentFilter(UPDATE_UI_ACTION));
         registerReceiver(mAuthPermissionReceiver, new IntentFilter(AUTH_PERMISSION_ACTION));
@@ -229,10 +216,40 @@ public class SetupActivity extends Activity {
     }
     
     private void setRegisterScreenContent() {
+    	
+    	
     	final EditText username=(EditText)findViewById(R.id.username);
     	final EditText password=(EditText)findViewById(R.id.password);
     	final EditText password2=(EditText)findViewById(R.id.password2);
         final Button backButton = (Button) findViewById(R.id.back);
+        final Button nextButton = (Button) findViewById(R.id.next);
+        final Button sinaweibologinbt = (Button) findViewById(R.id.sinaweibologinbt);
+        
+        Uri uri = this.getIntent().getData();
+        if(uri!=null){
+			String oauth_verifier = uri.getQueryParameter("oauth_verifier");
+			mWeibo.addOauthverifier(oauth_verifier);
+			try {
+				mWeibo.generateAccessToken(this, null);
+				String userinfo = mWeibo.getUserInfo(this, mWeibo);
+				Log.d("*******result", userinfo);
+				backButton.setEnabled(false);
+        		nextButton.setEnabled(false);
+        		SharedPreferences prefs = Prefs.get(SetupActivity.this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("username", userinfo);
+                //editor.putString("password", password.getText().toString());
+                editor.commit();
+                ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+                TextView textView = (TextView) findViewById(R.id.connecting_text);
+                textView.setVisibility(ProgressBar.VISIBLE);
+        		C2DMessaging.register(SetupActivity.this, Config.SENDER_Id);
+			}catch (Exception e1) {
+				e1.printStackTrace();
+			}
+        }
+        
         SharedPreferences prefs = Prefs.get(this);
         username.setText(prefs.getString("accountName", ""));
         backButton.setOnClickListener(new OnClickListener() {
@@ -240,8 +257,22 @@ public class SetupActivity extends Activity {
                 setScreenContent(R.layout.select_account);
             }
         });
+        
+        sinaweibologinbt.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	try {
+					RequestToken requestToken = mWeibo.getRequestToken(SetupActivity.this, Weibo.APP_KEY, 
+							Weibo.APP_SECRET, SetupActivity.URL_ACTIVITY_CALLBACK);
+					Uri uri = Uri.parse(Weibo.URL_AUTHENTICATION + "?display=wap2.0&oauth_token=" + 
+							requestToken.getToken() + "&from=" + SetupActivity.FROM);
+					startActivity(new Intent(Intent.ACTION_VIEW, uri));
+				}catch (WeiboException e){
+					e.printStackTrace();
+				}
+            }
+        });
 
-        final Button nextButton = (Button) findViewById(R.id.next);
+ 
         nextButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	if(username.getText().toString().equals("")){
@@ -264,16 +295,6 @@ public class SetupActivity extends Activity {
                     textView.setVisibility(ProgressBar.VISIBLE);
             		C2DMessaging.register(SetupActivity.this, Config.SENDER_Id);
             	}
-            	//TODO sina weibo
-				/*try {
-					RequestToken requestToken = mWeibo.getRequestToken(SetupActivity.this, Weibo.APP_KEY, 
-							Weibo.APP_SECRET, SetupActivity.URL_ACTIVITY_CALLBACK);
-					Uri uri = Uri.parse(Weibo.URL_AUTHENTICATION + "?display=wap2.0&oauth_token=" + 
-							requestToken.getToken() + "&from=" + SetupActivity.FROM);
-					startActivity(new Intent(Intent.ACTION_VIEW, uri));
-				}catch (WeiboException e){
-					e.printStackTrace();
-				}*/
             }
         });
     }
