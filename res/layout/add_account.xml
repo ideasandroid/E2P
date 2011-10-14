@@ -8,103 +8,63 @@
 	<ScrollView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_above="@+id/footer"
 		android:layout_below="@+id/header" android:layout_margin="5dip">
-		<LinearLayout
-			android:id="@+id/content" android:orientation="vertical"
-			android:layout_width="fill_parent" android:layout_height="wrap_content">
-		<RelativeLayout android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:background="@drawable/content_bg"
-			android:id="@+id/section1">
-			<TextView android:id="@+id/l_section1" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="E2P账户注册"
-				style="@style/E2PSectionHeader" />
-			<RelativeLayout android:layout_width="wrap_content"
-				android:layout_below="@id/l_section1" android:layout_height="wrap_content"
-				android:id="@+id/urlWrapper">
-				<TextView android:id="@+id/l_username" android:textColor="#444444"
+		<LinearLayout android:id="@+id/content"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<RelativeLayout android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:background="@drawable/content_bg"
+				android:id="@+id/section1">
+				<TextView android:id="@+id/l_section1"
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:text="用户名(可不使用gmail帐号):" android:layout_below="@id/urlWrapper" />
+					android:text="E2P账户注册" style="@style/E2PSectionHeader" />
+				<RelativeLayout android:layout_width="wrap_content"
+					android:layout_below="@id/l_section1" android:layout_height="wrap_content"
+					android:id="@+id/urlWrapper">
+					<TextView android:id="@+id/l_username" android:textColor="#444444"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:text="用户名(可不使用gmail帐号):" android:layout_below="@id/urlWrapper" />
 
-				<EditText android:id="@+id/username" android:inputType="textUri"
+					<EditText android:id="@+id/username" android:inputType="textUri"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:minHeight="40dip" android:background="@android:drawable/editbox_background"
+						android:layout_below="@id/l_username" />
+				</RelativeLayout>
+				<TextView android:id="@+id/l_password" android:textColor="#444444"
+					android:layout_marginTop="10dip" android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:text="密码:"
+					android:layout_below="@id/urlWrapper" />
+
+				<EditText android:id="@+id/password" android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:singleLine="true"
+					android:minHeight="40dip" android:password="true"
+					android:background="@android:drawable/editbox_background"
+					android:layout_below="@id/l_password" />
+
+				<TextView android:id="@+id/l_password2" android:textColor="#444444"
+					android:layout_marginTop="10dip" android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:text="确认密码:"
+					android:layout_below="@id/password" />
+
+				<EditText android:id="@+id/password2" android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:singleLine="true"
+					android:minHeight="40dip" android:layout_marginBottom="10dip"
+					android:password="true" android:background="@android:drawable/editbox_background"
+					android:layout_below="@id/l_password2" />
+				<ProgressBar android:id="@+id/progress_bar"
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:minHeight="40dip" android:background="@android:drawable/editbox_background"
-					android:layout_below="@id/l_username" />
+					android:layout_below="@id/password2" android:layout_marginLeft="5dip"
+					android:layout_marginRight="5dip" android:layout_marginBottom="0dip"
+					style="?android:attr/progressBarStyleHorizontal"
+					android:indeterminate="true" android:visibility="invisible" />
+
+				<TextView android:id="@+id/connecting_text"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:text="@string/connecting_text" android:textColor="#A0A0A0"
+					android:layout_below="@id/progress_bar" android:layout_marginLeft="5dip"
+					android:layout_marginTop="0dip" android:layout_marginBottom="10dip"
+					android:visibility="invisible" />
 			</RelativeLayout>
-			<TextView android:id="@+id/l_password" android:textColor="#444444"
-				android:layout_marginTop="10dip" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="密码:"
-				android:layout_below="@id/urlWrapper" />
-
-			<EditText android:id="@+id/password" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:singleLine="true"
-				android:minHeight="40dip" android:password="true"
-				android:background="@android:drawable/editbox_background"
-				android:layout_below="@id/l_password" />
-
-			<TextView android:id="@+id/l_password2" android:textColor="#444444"
-				android:layout_marginTop="10dip" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="确认密码:"
-				android:layout_below="@id/password" />
-
-			<EditText android:id="@+id/password2" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:singleLine="true"
-				android:minHeight="40dip" android:layout_marginBottom="10dip"
-				android:password="true" android:background="@android:drawable/editbox_background"
-				android:layout_below="@id/l_password2" />
-			<ProgressBar android:id="@+id/progress_bar"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:layout_below="@id/password2" android:layout_marginLeft="5dip"
-				android:layout_marginRight="5dip" android:layout_marginBottom="0dip"
-				style="?android:attr/progressBarStyleHorizontal"
-				android:indeterminate="true" android:visibility="invisible" />
-
-			<TextView android:id="@+id/connecting_text"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:text="@string/connecting_text" android:textColor="#A0A0A0"
-				android:layout_below="@id/progress_bar" android:layout_marginLeft="5dip"
-				android:layout_marginTop="0dip" android:layout_marginBottom="10dip"
-				android:visibility="invisible" />
-			
-		</RelativeLayout>
-		<RelativeLayout android:layout_width="fill_parent"
-			android:layout_marginTop="3dip"
-			android:layout_height="fill_parent" android:background="@drawable/content_bg"
-			android:id="@+id/section2">
-		<TextView android:id="@+id/l_section2" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="第三方帐号绑定"
-				style="@style/E2PSectionHeader" />
-		
-		<LinearLayout
-			android:id="@+id/otherloginMethod" android:orientation="horizontal"
-			android:layout_below="@id/l_section2"
-			android:layout_width="fill_parent" android:layout_height="wrap_content">
-			<Button android:id="@+id/sinaweibologinbt" android:layout_width="wrap_content"  
-            android:layout_height="wrap_content"
-            android:textSize="12dip"
-            android:text="新浪微博帐号登录"
-            android:shadowColor="#FFFFFFFF"
-            android:singleLine="true"
-            android:shadowDx="0"
-            android:shadowDy="2"
-            android:shadowRadius="1"
-            android:textStyle="bold"
-            android:background="@drawable/wp_button"
-            />
-	
-			<Button android:id="@+id/tencentweibologinbt" android:layout_width="wrap_content"  
-            android:layout_height="wrap_content"
-            android:textSize="12dip"
-            android:text="腾讯微博帐号登录"
-            android:shadowColor="#FFFFFFFF"
-            android:singleLine="true"
-            android:shadowDx="0"
-            android:shadowDy="2"
-            android:shadowRadius="1"
-            android:textStyle="bold"
-            android:background="@drawable/wp_button"
-            />
-			</LinearLayout>
-			</RelativeLayout>
-			</LinearLayout>
+		</LinearLayout>
 	</ScrollView>
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

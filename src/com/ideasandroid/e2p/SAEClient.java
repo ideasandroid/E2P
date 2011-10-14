@@ -32,7 +32,6 @@ import android.util.Log;
 public class SAEClient {
 
 	static final String BASE_URL = "http://e2pserver.sinaapp.com";
-    private static final String AUTH_URL = BASE_URL + "/login.php";
     private static final String AUTH_TOKEN_TYPE = "ah";
 
     private final Context mContext;

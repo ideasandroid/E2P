@@ -25,11 +25,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,9 +45,6 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.google.android.c2dm.C2DMessaging;
-import com.weibo.net.RequestToken;
-import com.weibo.net.Weibo;
-import com.weibo.net.WeiboException;
 
 /**
  * Setup activity - takes user through the setup.
@@ -57,14 +52,9 @@ import com.weibo.net.WeiboException;
 public class SetupActivity extends Activity {
     public static final String UPDATE_UI_ACTION = "com.google.ctp.UPDATE_UI";
     public static final String AUTH_PERMISSION_ACTION = "com.google.ctp.AUTH_PERMISSION";
-
     private boolean mPendingAuth = false;
     private int mScreenId = -1;
     private int mAccountSelectedPosition = 0;
-    
-    private static final String URL_ACTIVITY_CALLBACK = "e2p://E2PSignActivity";
-	private static final String FROM = "xweibo";
-	Weibo mWeibo = Weibo.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,40 +206,11 @@ public class SetupActivity extends Activity {
     }
     
     private void setRegisterScreenContent() {
-    	
-    	
     	final EditText username=(EditText)findViewById(R.id.username);
     	final EditText password=(EditText)findViewById(R.id.password);
     	final EditText password2=(EditText)findViewById(R.id.password2);
         final Button backButton = (Button) findViewById(R.id.back);
         final Button nextButton = (Button) findViewById(R.id.next);
-        final Button sinaweibologinbt = (Button) findViewById(R.id.sinaweibologinbt);
-        
-        Uri uri = this.getIntent().getData();
-        if(uri!=null){
-			String oauth_verifier = uri.getQueryParameter("oauth_verifier");
-			mWeibo.addOauthverifier(oauth_verifier);
-			try {
-				mWeibo.generateAccessToken(this, null);
-				String userinfo = mWeibo.getUserInfo(this, mWeibo);
-				Log.d("*******result", userinfo);
-				backButton.setEnabled(false);
-        		nextButton.setEnabled(false);
-        		SharedPreferences prefs = Prefs.get(SetupActivity.this);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("username", userinfo);
-                //editor.putString("password", password.getText().toString());
-                editor.commit();
-                ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-                progressBar.setVisibility(ProgressBar.VISIBLE);
-                TextView textView = (TextView) findViewById(R.id.connecting_text);
-                textView.setVisibility(ProgressBar.VISIBLE);
-        		C2DMessaging.register(SetupActivity.this, Config.SENDER_Id);
-			}catch (Exception e1) {
-				e1.printStackTrace();
-			}
-        }
-        
         SharedPreferences prefs = Prefs.get(this);
         username.setText(prefs.getString("accountName", ""));
         backButton.setOnClickListener(new OnClickListener() {
@@ -257,21 +218,6 @@ public class SetupActivity extends Activity {
                 setScreenContent(R.layout.select_account);
             }
         });
-        
-        sinaweibologinbt.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	try {
-					RequestToken requestToken = mWeibo.getRequestToken(SetupActivity.this, Weibo.APP_KEY, 
-							Weibo.APP_SECRET, SetupActivity.URL_ACTIVITY_CALLBACK);
-					Uri uri = Uri.parse(Weibo.URL_AUTHENTICATION + "?display=wap2.0&oauth_token=" + 
-							requestToken.getToken() + "&from=" + SetupActivity.FROM);
-					startActivity(new Intent(Intent.ACTION_VIEW, uri));
-				}catch (WeiboException e){
-					e.printStackTrace();
-				}
-            }
-        });
-
  
         nextButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {

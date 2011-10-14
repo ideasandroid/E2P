@@ -26,8 +26,8 @@ public class DeviceRegistrar {
 
     private static final String TAG = "DeviceRegistrar";
 
-    private static final String REGISTER_PATH = "/register.php";
-    private static final String UNREGISTER_PATH = "/unregister.php";
+    private static final String REGISTER_PATH = "/service/register";
+    private static final String UNREGISTER_PATH = "/service/unregister";
 
     public static void registerWithServer(final Context context,
           final String deviceRegistrationID) {
@@ -52,7 +52,6 @@ public class DeviceRegistrar {
                     }
                     context.sendBroadcast(updateUIIntent);
                 } catch (SAEClient.PendingAuthException pae) {
-                    // Get setup activity to ask permission from user.
                     Intent intent = new Intent(SetupActivity.AUTH_PERMISSION_ACTION);
                     intent.putExtra("AccountManagerBundle", pae.getAccountManagerBundle());
                     context.sendBroadcast(intent);
